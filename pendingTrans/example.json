@@ -1,5 +1,6 @@
 {
   "test": "test",
+  "testForMe": "test for \"me\".",
   "hello": "hello",
   "youAreBeautiful": "you are beautiful!"
 }

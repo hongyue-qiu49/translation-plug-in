@@ -30,8 +30,9 @@ do
   if [ "null" = "$valueTranslated" ]; then
     echo 'not find translation:' + $valueEn
   else
-    # todo: need change to regex
-    sed -i '' 's/'": ${valueEn}"'/'": ${valueTranslated}"'/g' $pendingTransPath
+    # todo need change to regex
+    valueEnCur=$(echo $valueEn | sed 's#\\#\\\\#g')
+    sed -i '' 's#'": ${valueEnCur}"'#'": ${valueTranslated}"'#g' $pendingTransPath
   fi
 done
 
