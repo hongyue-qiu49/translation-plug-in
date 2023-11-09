@@ -22,13 +22,17 @@ read -p "Which is your translated file type? [excel/json]: " translatedFileType
 if [ $translatedFileType = "json" ]; then
   pendingTransPath=$(readFilePath "${pendingPathInputTip}" "${pendingDefaultPath}" | tail -1)
   echo $pendingPathConfirmTip $pendingTransPath
+  echo '------------------------------------------------------'
   translatedFile=$(readFilePath "${referencePathInputTip}" "${referenceDefaultJsonPath}" | tail -1)
   echo $referencePathConfirmTip $translatedFile
+  echo '------------------------------------------------------'
 else
   pendingTransPath=$(readFilePath "${pendingPathInputTip}" "${pendingDefaultPath}" | tail -1)
   echo $pendingPathConfirmTip $pendingTransPath
+  echo '------------------------------------------------------'
   translatedExcelFile=$(readFilePath "${referencePathInputTip}" "${referenceDefaultExcelPath}" | tail -1)
   echo $referencePathConfirmTip $translatedExcelFile
+  echo '------------------------------------------------------'
   
   touch pendingTrans/test.json
   translatedFile=pendingTrans/test.json
