@@ -5,7 +5,7 @@ pendingDefaultPath="pendingTrans/example.json"
 pendingPathConfirmTip="The file path to be translated is: "
 
 referencePathInputTip="Please input file path that translation reference file? "
-referenceDefaultPath="translated/examplezh.json"
+referenceDefaultJsonPath="translated/examplezh.json"
 referenceDefaultExcelPath="translatedExcel/LevelOne.csv"
 referencePathConfirmTip="The translation reference file path is: "
 
@@ -22,7 +22,7 @@ read -p "Which is your translated file type? [excel/json]: " translatedFileType
 if [ $translatedFileType = "json" ]; then
   pendingTransPath=$(readFilePath "${pendingPathInputTip}" "${pendingDefaultPath}" | tail -1)
   echo $pendingPathConfirmTip $pendingTransPath
-  translatedFile=$(readFilePath "${referencePathInputTip}" "${referenceDefaultPath}" | tail -1)
+  translatedFile=$(readFilePath "${referencePathInputTip}" "${referenceDefaultJsonPath}" | tail -1)
   echo $referencePathConfirmTip $translatedFile
 else
   pendingTransPath=$(readFilePath "${pendingPathInputTip}" "${pendingDefaultPath}" | tail -1)
