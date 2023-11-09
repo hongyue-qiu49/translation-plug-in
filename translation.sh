@@ -18,13 +18,14 @@ readFilePath() {
 
 read -p "Which is your translated file type? [excel/json]" translatedFileType
 
-pendingTransPath=$(readFilePath "${pendingPathInputTip}" "${pendingDefaultPath}" | tail -1)
+if [ $translatedFileType = "json" ]; then  
+  pendingTransPath=$(readFilePath "${pendingPathInputTip}" "${pendingDefaultPath}" | tail -1)
   echo $pendingPathConfirmTip $pendingTransPath
-
-if [$translatedFileType = "json"]; then  
   translatedFile=$(readFilePath "${referencePathInputTip}" "${referenceDefaultPath}" | tail -1)
   echo $referencePathConfirmTip $translatedFile
 else
+  pendingTransPath=$(readFilePath "${pendingPathInputTip}" "${pendingDefaultPath}" | tail -1)
+  echo $pendingPathConfirmTip $pendingTransPath
   touch pendingTrans/test.json
   translatedFile=pendingTrans/test.json
   # | .[1:] ignore the table header
