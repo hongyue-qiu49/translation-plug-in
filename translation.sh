@@ -6,6 +6,7 @@ pendingPathConfirmTip="The file path to be translated is: "
 
 referencePathInputTip="Please input file path that translation reference file? "
 referenceDefaultPath="translated/examplezh.json"
+referenceDefaultExcelPath="translatedExcel/LevelOne.csv"
 referencePathConfirmTip="The translation reference file path is: "
 
 readFilePath() {
@@ -16,9 +17,9 @@ readFilePath() {
   echo $path
 }
 
-read -p "Which is your translated file type? [excel/json]" translatedFileType
+read -p "Which is your translated file type? [excel/json]: " translatedFileType
 
-if [ $translatedFileType = "json" ]; then  
+if [ $translatedFileType = "json" ]; then
   pendingTransPath=$(readFilePath "${pendingPathInputTip}" "${pendingDefaultPath}" | tail -1)
   echo $pendingPathConfirmTip $pendingTransPath
   translatedFile=$(readFilePath "${referencePathInputTip}" "${referenceDefaultPath}" | tail -1)
@@ -26,12 +27,15 @@ if [ $translatedFileType = "json" ]; then
 else
   pendingTransPath=$(readFilePath "${pendingPathInputTip}" "${pendingDefaultPath}" | tail -1)
   echo $pendingPathConfirmTip $pendingTransPath
+  translatedExcelFile=$(readFilePath "${referencePathInputTip}" "${referenceDefaultExcelPath}" | tail -1)
+  echo $referencePathConfirmTip $translatedExcelFile
+  
   touch pendingTrans/test.json
   translatedFile=pendingTrans/test.json
   # | .[1:] ignore the table header
   jq --slurp --raw-input \
     'split("\r\n") | map(split(",") | {"key":.[0],"value":.[1]}) | from_entries'  \
-    pendingTransExcel/LevelOne.csv  > pendingTrans/test.json
+    $translatedExcelFile  > pendingTrans/test.json
 fi
 
 count=$( jq '.| length' $pendingTransPath )
