@@ -37,7 +37,7 @@ else
   touch pendingTrans/test.json
   translatedFile=pendingTrans/test.json
   # | .[1:] ignore the table header
-  jq --slurp --raw-input \
+  jq -s -R \
     'split("\r\n") | map(split(",") | {"key":.[0],"value":.[1]}) | from_entries'  \
     $translatedExcelFile  > pendingTrans/test.json
 fi
